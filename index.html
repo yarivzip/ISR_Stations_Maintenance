@@ -26,7 +26,7 @@
 				<p>
 					<h3>נא סמן ליקויים במידה ונמצאו</h3>
 				</p>
-				<div class="container" id="lstChks">
+				<!--div class="container" id="lstChks">
 				    <input type="checkbox" /> שילוט לא עובד <br />
 				    <input type="checkbox" /> שילוט עובד אבל לא מראה פרטים מדויקים <br />
 				    <input type="checkbox" /> אין חשמל בנקודה <br />
@@ -36,7 +36,23 @@
 				    <input type="checkbox" /> סביבת השילוט והעמוד אינם נקיים <br />
 				    <input type="checkbox" /> פנל סולרי שבור <br />
 				    <input type="checkbox" /> מצבר נגמר <br />
+				</div-->
+				
+				<div  id="lstChks">
+					<select multiple="multiple">
+						<option value="" selected>בחר</option>
+					    <option value="eSignNotWorking"> שילוט לא עובד </option>
+					    <option value="eSignNotAccurate"> שילוט עובד אבל לא מראה פרטים מדויקים </option>
+					    <option value="eElectricityProblem"> אין חשמל בנקודה </option>
+					    <option value="eBrokenPoll"> ונדליזם: עמוד שבור </option>
+					    <option value="eSignBroken"> ונדליזם: שילוט שבור </option>
+					    <option value="eSignDirty"> שילוט מלוכלך </option>
+					    <option value="eEnvironmentDirty"> סביבת השילוט והעמוד אינם נקיים </option>
+					    <option value="eSolarPanelBroken"> פנל סולרי שבור </option>
+					    <option value="eLowBattery"> מצבר נגמר </option>
+					</select>
 				</div>
+				
 				
 				<p>
 					<h3>נא סמן פעולות שבוצעו בעמדה</h3>
