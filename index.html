@@ -22,11 +22,50 @@
 			<!-- Content    -->
 			<div data-role="content">
 				<h3>הזן מספר תחנה</h3>
-				<input type="text" id="inptStationNumber"/> 
-				<button type="button" id="btnSend">שלח</button>
+				<input type="number" step="1" id="inptStationNumber"/> 
 				<p>
-					Blah blah blah blah
+					<h3>נא סמן ליקויים במידה ונמצאו</h3>
 				</p>
+				<div class="container" id="lstChks">
+				    <input type="checkbox" /> שילוט לא עובד <br />
+				    <input type="checkbox" /> שילוט עובד אבל לא מראה פרטים מדויקים <br />
+				    <input type="checkbox" /> אין חשמל בנקודה <br />
+				    <input type="checkbox" /> ונדליזם: עמוד שבור <br />
+				    <input type="checkbox" /> ונדליזם: שילוט שבור <br />
+				    <input type="checkbox" /> שילוט מלוכלך <br />
+				    <input type="checkbox" /> סביבת השילוט והעמוד אינם נקיים <br />
+				    <input type="checkbox" /> פנל סולרי שבור <br />
+				    <input type="checkbox" /> מצבר נגמר <br />
+				</div>
+				
+				<p>
+					<h3>נא סמן פעולות שבוצעו בעמדה</h3>
+				</p>
+				
+				<div class="container" id="lstActions">
+				    <input type="checkbox" /> שילוט לא עובד <br />
+				    <input type="checkbox" /> שילוט עובד אבל לא מראה פרטים מדויקים <br />
+				    <input type="checkbox" /> אין חשמל בנקודה <br />
+				    <input type="checkbox" /> ונדליזם: עמוד שבור <br />
+				    <input type="checkbox" /> ונדליזם: שילוט שבור <br />
+				    <input type="checkbox" /> שילוט מלוכלך <br />
+				    <input type="checkbox" /> סביבת השילוט והעמוד אינם נקיים <br />
+				    <input type="checkbox" /> פנל סולרי שבור <br />
+				    <input type="checkbox" /> מצבר נגמר <br />
+				</div>
+				<div>
+					<textarea 	lang="he" name="comments" COLS=40 ROWS=6 id="comments" class="textarea" dir="rtl"
+				
+						onblur="if(this.value=='') this.value='הזן הערות במידת הצורך';" 
+					    onfocus="if(this.value=='הזן הערות במידת הצורך') this.value='';"
+					>הזן הערות במידת הצורך
+				  	</textarea>
+				</div>
+				
+				
+				<button type="button" id="btnGetPicture">צלם את העמדה</button>
+
+				<button type="button" id="btnSend">שלח</button>
 			</div>
 			<!-- /content -->
 			<!-- footer -->
@@ -67,19 +106,25 @@
 		else
 			alert("נשלח לשרת");
 			
-		navigator.camera.getPicture(onSuccess, onFail, { quality: 50 }); 
+		navigator.camera.getPicture(onGetPictureSuccess, onGetPictureFail, { quality: 50 }); 
 
 	
 	}
+	
 
-	function onSuccess(imageData) {
+	function onGetPictureSuccess(imageData) {
 	    var image = document.getElementById('myImage');
 	    image.src = "data:image/jpeg;base64," + imageData;
 	}
 	
-	function onFail(message) {
+	function onGetPictureFail(message) {
 	    alert('Failed because: ' + message);
 	}	
+	
+	function onClickGetPicture(){
+		document.getElementById("btnGetPicture").onclick = onClickGetPicture;
+		
+	}
 		
 	
 	
