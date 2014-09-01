@@ -66,9 +66,23 @@
 			alert("נא הזן מספר תחנה חוקי");
 		else
 			alert("נשלח לשרת");
-		
-		
-		
+			
+		navigator.camera.getPicture(onSuccess, onFail, { quality: 50 }); 
+
+	
 	}
+
+	function onSuccess(imageData) {
+	    var image = document.getElementById('myImage');
+	    image.src = "data:image/jpeg;base64," + imageData;
+	}
+	
+	function onFail(message) {
+	    alert('Failed because: ' + message);
+	}	
+		
+	
+	
+	
 
 </script>
