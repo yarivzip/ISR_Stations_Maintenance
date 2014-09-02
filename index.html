@@ -26,21 +26,9 @@
 				<p>
 					<h3>נא סמן ליקויים במידה ונמצאו</h3>
 				</p>
-				<!--div class="container" id="lstChks">
-				    <input type="checkbox" /> שילוט לא עובד <br />
-				    <input type="checkbox" /> שילוט עובד אבל לא מראה פרטים מדויקים <br />
-				    <input type="checkbox" /> אין חשמל בנקודה <br />
-				    <input type="checkbox" /> ונדליזם: עמוד שבור <br />
-				    <input type="checkbox" /> ונדליזם: שילוט שבור <br />
-				    <input type="checkbox" /> שילוט מלוכלך <br />
-				    <input type="checkbox" /> סביבת השילוט והעמוד אינם נקיים <br />
-				    <input type="checkbox" /> פנל סולרי שבור <br />
-				    <input type="checkbox" /> מצבר נגמר <br />
-				</div-->
-				
+		
 				<div  id="lstChks">
 					<select multiple="multiple">
-						<option value="" selected>בחר</option>
 					    <option value="eSignNotWorking"> שילוט לא עובד </option>
 					    <option value="eSignNotAccurate"> שילוט עובד אבל לא מראה פרטים מדויקים </option>
 					    <option value="eElectricityProblem"> אין חשמל בנקודה </option>
@@ -58,16 +46,20 @@
 					<h3>נא סמן פעולות שבוצעו בעמדה</h3>
 				</p>
 				
-				<div class="container" id="lstActions">
-				    <input type="checkbox" /> שילוט לא עובד <br />
-				    <input type="checkbox" /> שילוט עובד אבל לא מראה פרטים מדויקים <br />
-				    <input type="checkbox" /> אין חשמל בנקודה <br />
-				    <input type="checkbox" /> ונדליזם: עמוד שבור <br />
-				    <input type="checkbox" /> ונדליזם: שילוט שבור <br />
-				    <input type="checkbox" /> שילוט מלוכלך <br />
-				    <input type="checkbox" /> סביבת השילוט והעמוד אינם נקיים <br />
-				    <input type="checkbox" /> פנל סולרי שבור <br />
-				    <input type="checkbox" /> מצבר נגמר <br />
+				<div  id="lstActions">
+					<select multiple="multiple">
+						<option value="eActionSignFixed">שלט תוקן</option>
+						<option value="eActionConnectedToServer">חובר לשרת</option>
+						<option value="eActionFixedElectricityProblem">תוקנה תקלת חשמל</option>
+						<option value="eActionFixedBrokenSign">תוקן שלט שבור</option>
+						<option value="eActionFixedPol">תוקן עמוד שבור</option>
+						<option value="eActionCleanedSign">נקיון שלט</option>
+						<option value="eActionCleanedEnvironment">נקיון כללי בעמדה</option>
+						<option value="eActionResetSign">איפוס שלט</option>
+						<option value="eActionReplacedSolarPanel">הוחלף פאנל סולארי</option>
+						<option value="eActionReplacedBattery">הוחלף מצבר</option>
+				    </select>
+				    
 				</div>
 				<div>
 					<textarea 	lang="he" name="comments" COLS=40 ROWS=6 id="comments" class="textarea" dir="rtl"
@@ -101,7 +93,7 @@
 		document.addEventListener("pause",onPause,false);
 		document.addEventListener("resume",onResume,false);
 	
-		navigator.splashscreen.show();
+		//navigator.splashscreen.show();
 		//alert("Device Ready");
 	}
 	
