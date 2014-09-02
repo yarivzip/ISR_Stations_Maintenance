@@ -27,8 +27,8 @@
 					<h3>נא סמן ליקויים במידה ונמצאו</h3>
 				</p>
 		
-				<div  id="lstChks">
-					<select multiple="multiple">
+				<div>
+					<select multiple="multiple" id="lstChks">
 					    <option value="eSignNotWorking"> שילוט לא עובד </option>
 					    <option value="eSignNotAccurate"> שילוט עובד אבל לא מראה פרטים מדויקים </option>
 					    <option value="eElectricityProblem"> אין חשמל בנקודה </option>
@@ -46,8 +46,8 @@
 					<h3>נא סמן פעולות שבוצעו בעמדה</h3>
 				</p>
 				
-				<div  id="lstActions">
-					<select multiple="multiple">
+				<div>
+					<select multiple="multiple" id="lstActions">
 						<option value="eActionSignFixed">שלט תוקן</option>
 						<option value="eActionConnectedToServer">חובר לשרת</option>
 						<option value="eActionFixedElectricityProblem">תוקנה תקלת חשמל</option>
@@ -62,11 +62,7 @@
 				    
 				</div>
 				<div>
-					<textarea 	lang="he" name="comments" COLS=40 ROWS=6 id="comments" class="textarea" dir="rtl"
-				
-						onblur="if(this.value=='') this.value='הזן הערות במידת הצורך';" 
-					    onfocus="if(this.value=='הזן הערות במידת הצורך') this.value='';"
-					>הזן הערות במידת הצורך
+					<textarea 	placeholder="הזן טקסט חופשי" lang="he" name="comments" COLS=40 ROWS=6 id="comments" class="textarea" dir="rtl">
 				  	</textarea>
 				</div>
 				
@@ -111,9 +107,32 @@
 	
 		var stationnumber = document.getElementById("inptStationNumber").value;
 		if(isNaN(stationnumber))
+		{
 			alert("נא הזן מספר תחנה חוקי");
-		else
-			alert("נשלח לשרת");
+			return;
+		}
+		
+		//start collecting data for sending
+		//get selected problems
+		var arrSelProblems = $('#lstChks').val();
+		var jsonProblems = JSON.stringify(arrSelProblems);
+		
+		//get selected actions 
+		var arrSelActions = $('#lstActions').val();
+		var jsonActions = JSON.stringify(arrSelActions);
+		
+		//get freetext
+		var freeTxt = $('#comments').val();
+		var jsonFreeText = JSON.parse(freeTxt);
+		
+		
+		alert(jsonProblems);
+		alert(arrSelActions);
+		alert(freeTxt);
+		
+		
+		
+		
 			
 	}
 	
