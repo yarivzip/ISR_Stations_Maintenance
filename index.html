@@ -114,23 +114,28 @@
 		
 		//start collecting data for sending
 		//get selected problems
-		var arrSelProblems = $('#lstChks').val();
-		var jsonProblems = JSON.stringify(arrSelProblems);
-		
-		//get selected actions 
+		var arrSelProblems=$('#lstChks').val();
 		var arrSelActions = $('#lstActions').val();
-		var jsonActions = JSON.stringify(arrSelActions);
+		
+		myJson={objSelProbs:{},objSelActions:{}};
+		for(var k=0;k<arrSelProblems.length;k++){
+		    var objName='obj'+k;
+		    var objValue=arrSelProblems[k];
+		    myJson.objSelProbs[objName]=objValue;
+		}
+		for(var k=0;k<arrSelActions.length;k++){
+		    var objName='obj'+k;
+		    var objValue=arrSelActions[k];
+		    myJson.objSelActions[objName]=objValue;
+		}
+		console.log(JSON.stringify(myJson));		
+		alert(JSON.stringify(myJson));
 		
 		//get freetext
 		var freeTxt = $('#comments').val();
-		var jsonFreeText = JSON.parse(freeTxt);
+//		var jsonFreeText = JSON.parse(freeTxt);
 		
-		
-		alert(jsonProblems);
-		alert(arrSelActions);
-		alert(freeTxt);
-		
-		
+	
 		
 		
 			
