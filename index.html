@@ -74,8 +74,8 @@
 				
 				
 				<button class="ui-btn-right ui-icon-camera ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button>
-				<img id="smallimage" style="display: none"/>
-
+				<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    			<img style="display:none;" id="largeImage" src="" />
 				<button type="button" id="btnSend">שלח</button>
 			</div>
 			<!-- /content -->
@@ -121,6 +121,7 @@
 
 	var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
+    var takenPic = "";
     
      
 	document.addEventListener("deviceReady",onDeviceReady,false);
@@ -156,7 +157,7 @@
 	function onClickSend(){
 	
 		var stationnumber = document.getElementById("inptStationNumber").value;
-		if(isNaN(stationnumber))
+		if(stationnumber=="" || isNaN(stationnumber) )
 		{
 			alert("נא הזן מספר תחנה חוקי");
 			return;
@@ -168,15 +169,20 @@
 		var arrSelActions = $('#lstActions').val();
 		
 		myJson={objSelProbs:{},objSelActions:{}};
-		for(var k=0;k<arrSelProblems.length;k++){
-		    var objName='obj'+k;
-		    var objValue=arrSelProblems[k];
-		    myJson.objSelProbs[objName]=objValue;
+		if (arrSelProblems != null){
+			for(var k=0;k<arrSelProblems.length;k++){
+			    var objName='obj'+k;
+			    var objValue=arrSelProblems[k];
+			    myJson.objSelProbs[objName]=objValue;
+			}
 		}
-		for(var k=0;k<arrSelActions.length;k++){
-		    var objName='obj'+k;
-		    var objValue=arrSelActions[k];
-		    myJson.objSelActions[objName]=objValue;
+
+		if (arrSelActions != null){
+			for(var k=0;k<arrSelActions.length;k++){
+			    var objName='obj'+k;
+			    var objValue=arrSelActions[k];
+			    myJson.objSelActions[objName]=objValue;
+			}
 		}
 		console.log(JSON.stringify(myJson));		
 		alert(JSON.stringify(myJson));
@@ -207,18 +213,19 @@
     //
     function onPhotoDataSuccess(imageData) {
       // Uncomment to view the base64 encoded image data
-      // console.log(imageData);
+       console.log(imageData);
 
+	  //save picture taken for uploading
+	  takenPic = imageData;
+	  	
       // Get image handle
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
-      //
       smallImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
-      //
       smallImage.src = "data:image/jpeg;base64," + imageData;
     }
 
@@ -246,24 +253,22 @@
     //
     function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
+      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.DATA_URL });
+      //navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50});
     }
 
     // A button will call this function
     //
     function capturePhotoEdit() {
       // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
+      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 20, allowEdit: true,destinationType: destinationType.DATA_URL });
     }
 
     // A button will call this function
     //
     function getPhoto(source) {
       // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onGetPictureFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
+      navigator.camera.getPicture(onPhotoURISuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.FILE_URI,
         sourceType: source });
     }
 
