@@ -8,7 +8,7 @@
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 		
-		<script type="text/javascript" charset="utf-8" src="../Cordova/cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	</head>
 	
 	<body>
@@ -73,7 +73,8 @@
 				</div>
 				
 				
-				<button type="button" id="btnGetPicture">צלם את העמדה</button>
+				<button class="ui-btn-right ui-icon-camera ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button>
+				<img id="smallimage" style="display: none"/>
 
 				<button type="button" id="btnSend">שלח</button>
 			</div>
@@ -117,15 +118,23 @@
 	</body>
 </html>
 <script>
+
+	var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+    
+     
 	document.addEventListener("deviceReady",onDeviceReady,false);
+	
 	
 	function onDeviceReady(){
 		document.addEventListener("pause",onPause,false);
 		document.addEventListener("resume",onResume,false);
-		//document.addEventListener("menubutton",doMenu,false); not working??
+		
+		pictureSource = navigator.camera.PictureSourceType;
+		destinationType = navigator.camera.DestinationType;
 	
 		navigator.splashscreen.hide();
-		alert("Device Ready");
+		//alert("Device Ready");
 	}
 	
 	
@@ -178,23 +187,92 @@
 	}
 	
 	
-	document.getElementById("btnGetPicture").onclick = onClickGetPicture;
+	document.getElementById("btnGetPicture").onclick = capturePhoto; //aaa
 
 	function onGetPictureSuccess(imageData) {
 	    var image = document.getElementById('myImage');
 	    image.src = "data:image/jpeg;base64," + imageData;
 	}
 	
-	function onGetPictureFail(message) {
-	    //alert('Failed because: ' + message);
-	}	
 	
 	function onClickGetPicture(){
-		navigator.camera.getPicture(onGetPictureSuccess, onGetPictureFail, { quality: 50 }); 
+		var options = "{}";
+		navigator.camera.getPicture(onGetPictureSuccess, onGetPictureFail, { quality: 50 });
+ 
 	}
 		
 	
-	
+	/////////////////////////////////////start testing camera//////////////////////////////////////////////////////
+	    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Uncomment to view the base64 encoded image data
+      // console.log(imageData);
+
+      // Get image handle
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 20, allowEdit: true,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onGetPictureFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+
+	function onGetPictureFail(message) {
+	    //alert('Failed because: ' + message);
+	}	
+
+	//////////////////////////////////// end testing camera ///////////////////////////////////////////////////////
 	
 
 </script>
