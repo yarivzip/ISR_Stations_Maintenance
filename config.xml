@@ -8,6 +8,7 @@
 	versionCode = "11" >
 
 	<name>isrPoles</name>
+	<title>isrPoles</title>
 	<description>Bus stations poles and digital signage maintenance application</description>
 	<author href="http://www.isrcorp.co.il" email="yariv@isrcorp.co.il">
 		Yariv Ziporin 
