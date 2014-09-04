@@ -193,7 +193,7 @@
 	}
 	
 	
-	document.getElementById("btnGetPicture").onclick = capturePhotoEdit;//capturePhoto; //aaa
+	document.getElementById("btnGetPicture").onclick = getPhoto;//capturePhotoEdit;//capturePhoto; //aaa
 
 	function onGetPictureSuccess(imageData) {
 	    var image = document.getElementById('myImage');
@@ -234,6 +234,9 @@
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI 
       // console.log(imageURI);
+
+	  //save picture taken for uploading
+	  takenPic = imageURI;
 
       // Get image handle
       //
