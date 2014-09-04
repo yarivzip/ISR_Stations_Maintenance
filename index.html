@@ -10,11 +10,16 @@
 		<script type="text/javascript" charset="utf-8" src="../Cordova/cordova.js"></script>
 	</head>
 	
-	<body>	
+	<body>
+		
+
+	
 		<!-- Start of first page I -->
 		<div data-role="page" id="page1" dir="rtl">
 			<!-- Header -->
 			<div data-role="header">
+				<a href="#settings_page" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="gear">הגדרות</a>
+		
 				<h1>בדיקת תחנות</h1>
 
 			</div>
@@ -78,7 +83,35 @@
 			</div>
 			<!-- /footer -->
 		</div>
-		<!-- /page -->
+		<!-- /page1 -->
+		
+		<!--settings page -->	
+		<div data-role="page" id="settings_page" dir="rtl">
+			<div data-role="Header">
+				<a href="#page1" class="ui-btn-left" data-transition="slide" data-direction="reverse" data-icon="home">Home</a>
+				<h1>הגדרות</h1>
+			</div>
+			
+			<div data-role="content">
+				<ul data-role="listview">
+					<li>
+						<a href="#gps" 		data-transition="slide" class="menu">GPS</a>
+					</li>
+					<li>
+						<a href="#setting2" data-transition="slide" class="menu">הגדרות 2</a>
+					</li>
+					<li>
+						<a href="#setting3" data-transition="slide" class="menu">הגדרות 3</a>
+					</li>
+					<li>
+						<a href="#setting4" data-transition="slide" class="menu">הגדרות 4</a>
+					</li>
+					
+					
+				</ul>
+			</div>
+		</div><!--end of settig page -->
+		
 
 	</body>
 </html>
