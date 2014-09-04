@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		
 		<script type="text/javascript" charset="utf-8" src="../Cordova/cordova.js"></script>
 	</head>
 	
@@ -88,14 +89,14 @@
 		<!--settings page -->	
 		<div data-role="page" id="settings_page" dir="rtl">
 			<div data-role="Header">
-				<a href="#page1" class="ui-btn-left" data-transition="slide" data-direction="reverse" data-icon="home">Home</a>
+				<a href="#page1" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="gear">חזרה</a>
 				<h1>הגדרות</h1>
 			</div>
 			
 			<div data-role="content">
 				<ul data-role="listview">
 					<li>
-						<a href="#gps" 		data-transition="slide" class="menu">GPS</a>
+						<a href="#gps" 		data-transition="slide" class="menu" dir="rtl">GPS</a>
 					</li>
 					<li>
 						<a href="#setting2" data-transition="slide" class="menu">הגדרות 2</a>
