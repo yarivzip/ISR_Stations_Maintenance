@@ -74,7 +74,7 @@
 				
 				
 				<button class="ui-btn-right ui-icon-camera ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button>
-				<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+				<img style="display:none;width:600px;height:600px;" id="smallImage" src="" />
     			<img style="display:none;" id="largeImage" src="" />
 				<button type="button" id="btnSend">שלח</button>
 			</div>
@@ -141,16 +141,13 @@
 	
 	
 	function onPause(){
-		alert("Device paused");
+		//alert("Device paused");
 	}
 	
 	function onResume(){
-		alert("Device resumed");
+		//alert("Device resumed");
 	}
 	
-	function doMenu(){
-		console.log("menu clicked");
-	}
 
 	document.getElementById("btnSend").onclick = onClickSend;
 	
@@ -190,10 +187,13 @@
 		//get freetext
 		var freeTxt = $('#comments').val();
 //		var jsonFreeText = JSON.parse(freeTxt);
+
+		//test send picture by mail
+		
 	}
 	
 	
-	document.getElementById("btnGetPicture").onclick = getPhoto;//capturePhotoEdit;//capturePhoto; //aaa
+	document.getElementById("btnGetPicture").onclick = capturePhoto;//getPhoto;capturePhotoEdit;//capturePhoto; //aaa
 
 	function onGetPictureSuccess(imageData) {
 	    var image = document.getElementById('myImage');
