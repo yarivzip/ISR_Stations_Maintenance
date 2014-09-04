@@ -9,6 +9,8 @@
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 		
 		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="EmailComposer.js"></script>
+		
 	</head>
 	
 	<body>
@@ -183,16 +185,22 @@
 		}
 		console.log(JSON.stringify(myJson));		
 		alert(JSON.stringify(myJson));
-		alert("pictur= "+ takenPic);
+		
 		
 		//get freetext
 		var freeTxt = $('#comments').val();
 //		var jsonFreeText = JSON.parse(freeTxt);
 
 		//test send picture by mail
+		sendPicByMail();
+		
 		
 	}
 	
+	function sendPicByMail(){
+		window.plugins.emailComposer.showEmailComposerWithCallback(function(result){alert("res= " + result);},"testPicByEmail","Bla bla",["yarivzip@gmail.com"],[],[],false,takenPic);
+				
+	}
 	
 	document.getElementById("btnGetPicture").onclick = capturePhoto;//getPhoto;capturePhotoEdit;//capturePhoto; //aaa
 
@@ -217,7 +225,8 @@
        console.log(imageData);
 
 	  //save picture taken for uploading
-	  takenPic = imageData;
+	  ////takenPic = "data:image/jpeg;base64," + imageData;//data
+	  takenPic = imageData;//URI
 	  	
       // Get image handle
       var smallImage = document.getElementById('smallImage');
@@ -227,7 +236,8 @@
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
-      smallImage.src = "data:image/jpeg;base64," + imageData;
+      ////smallImage.src = "data:image/jpeg;base64," + imageData;//data
+      smallImage.src = imageData;//URI
     }
 
     // Called when a photo is successfully retrieved
@@ -257,8 +267,8 @@
     //
     function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.DATA_URL });
-      //navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50});
+      //navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.DATA_URL });
+      navigator.camera.getPicture(onPhotoDataSuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.FILE_URI});
     }
 
     // A button will call this function
@@ -272,7 +282,7 @@
     //
     function getPhoto(source) {
       // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.FILE_URI,sourceType: source });
+      navigator.camera.getPicture(onPhotoURISuccess, onGetPictureFail, { quality: 50,destinationType: destinationType.FILE_URI,pictureSource: PictureSourceType.CAMERA });
     }
 
 

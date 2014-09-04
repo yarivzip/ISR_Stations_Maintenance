@@ -58,7 +58,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.vibration" />
-
+	<gap:plugin name="com.jcjee.plugins.emailcomposer" version="1.4.6" />
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="splash.png"/> <!-- default splash -->
