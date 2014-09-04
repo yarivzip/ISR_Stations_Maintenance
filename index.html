@@ -74,7 +74,7 @@
 				
 				
 				<button class="ui-btn-right ui-icon-camera ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button>
-				<img style="display:none;width:600px;height:600px;" id="smallImage" src="" />
+				<img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
     			<img style="display:none;" id="largeImage" src="" />
 				<button type="button" id="btnSend">שלח</button>
 			</div>
@@ -183,6 +183,7 @@
 		}
 		console.log(JSON.stringify(myJson));		
 		alert(JSON.stringify(myJson));
+		alert("pictur= "+ takenPic);
 		
 		//get freetext
 		var freeTxt = $('#comments').val();
