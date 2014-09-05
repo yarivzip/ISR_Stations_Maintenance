@@ -26,7 +26,7 @@
 		<div data-role="page" id="page1" dir="rtl">
 			<!-- Header -->
 			<div data-role="header" data-theme="a">
-				<a href="#myPanel"  class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="gear">אפשרויות</a>
+				<a href="#myPanel"  class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="carat-l">אפשרויות</a>
 				<!--a href="#testLocation" class="ui-btn-left" data-transition="slide" data-direction="forward" data-icon="search">אתר תחנה</a-->
 				<h1>בדיקת תחנות</h1>
 				<!--button data-role="button" class="ui-btn-left" id="btnGetNearestPole" data-icon="search">אתר תחנה</button-->
@@ -85,8 +85,8 @@
 				<!--a id="btnGetPicture" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="camera">צלם</a-->
 				<button type="button" id="btnGetPicture">צלם</button>
 				
-				<img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
-    			<img style="display:none;" id="largeImage" src="" />
+				<img style="display:none;width:250px;height:250px;" align="middle" id="smallImage" src="" />
+    			<img style="display:none;" id="largeImage" align="middle" src="" />
 				<button type="button" id="btnSend">שלח</button>
 			</div>
 			<!-- /content -->
@@ -97,11 +97,15 @@
 			<!-- /end footer -->
 			
 			<!-- panel-->
-  			<div data-role="panel" id="myPanel"> 
+  			<div data-role="panel" id="myPanel" data-display="overlay" data-position="right"> 
     			<h2>אפשרויות</h2>
-    			<p>ניתן לסגור את הפאנל על ידי הקלקה מחוצה לו או החלקה הצידה</p>
-				<a href="#settings_page" data-role="button">הגדרות</a>
-        		<a data-role="button" id="btnGetNearestPole">אתר עמוד קרוב</a>        			
+    			
+    			<ul data-role="listview">
+					<li data-icon="user"><a href="#user" >משתמש</a></li>
+					<li data-icon="search"><a id="btnGetNearestPole" >חפש עמוד קרוב</a></li>
+					<li data-icon="gear"><a href="#settings_page" data-direction="reverse" data-transition="flip">הגדרות</a></li>
+    			</ul>
+   			
   			</div> 
 			
 		</div>
@@ -116,8 +120,8 @@
 			
 			<div data-role="content">
 				<ul data-role="listview">
-					<li>
-						<a href="#gps" 		data-transition="slide" class="menu" dir="rtl">GPS</a>
+					<li data-icon="location">
+						<a href="#gps" 		data-transition="slide" class="menu" dir="rtl">מיקום</a>
 					</li>
 					<li>
 						<a href="#disconnect" data-transition="slide" class="menu">התנתק</a>
