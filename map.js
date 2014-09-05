@@ -3,13 +3,17 @@
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
 $( document ).on( "pageinit", "#map-page", function() {
+	alert("1");
     var defaultLatLng = new google.maps.LatLng(31.794419, 35.187608);  // Default to Hollywood, CA when no geolocation support
     if ( navigator.geolocation ) {
         function success(pos) {
+    		alert("2");
+
             // Location found, show map with these coordinates
             drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         }
         function fail(error) {
+    		alert("3");
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
