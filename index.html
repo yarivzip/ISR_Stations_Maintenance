@@ -22,13 +22,16 @@
 			<!-- Header -->
 			<div data-role="header">
 				<a href="#settings_page" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="gear">הגדרות</a>
+				<!--a href="#testLocation" class="ui-btn-left" data-transition="slide" data-direction="forward" data-icon="search">אתר תחנה</a-->
+				<button class="ui-btn-left ui-btn-icon-right" id="btnGetNearestPole" data-icon="search">אתר תחנה</button>
 		
 				<h1>בדיקת תחנות</h1>
 
 			</div>
 			<!-- /header -->
 			<!-- Content    -->
-			<div data-role="content">
+
+			<div data-role="main" class="ui-content">
 				<h3>הזן מספר תחנה</h3>
 				<input type="number" step="1" id="inptStationNumber"/> 
 				<p>
@@ -75,7 +78,7 @@
 				</div>
 				
 				
-				<button class="ui-btn-right ui-icon-camera ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button>
+				<button class="ui-btn-right ui-btn-icon-right" id="btnGetPicture" data-icon="video">צלם תמונה</button>
 				<img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
     			<img style="display:none;" id="largeImage" src="" />
 				<button type="button" id="btnSend">שלח</button>
@@ -91,8 +94,8 @@
 		
 		<!--settings page -->	
 		<div data-role="page" id="settings_page" dir="rtl">
-			<div data-role="Header">
-				<a href="#page1" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="gear">חזרה</a>
+			<div data-role="header">
+				<a href="#page1"  class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="home">חזרה</a>
 				<h1>הגדרות</h1>
 			</div>
 			
@@ -102,7 +105,7 @@
 						<a href="#gps" 		data-transition="slide" class="menu" dir="rtl">GPS</a>
 					</li>
 					<li>
-						<a href="#setting2" data-transition="slide" class="menu">הגדרות 2</a>
+						<a href="#disconnect" data-transition="slide" class="menu">התנתק</a>
 					</li>
 					<li>
 						<a href="#setting3" data-transition="slide" class="menu">הגדרות 3</a>
@@ -115,6 +118,15 @@
 				</ul>
 			</div>
 		</div><!--end of settig page -->
+		
+		<div data-role="page" id="testLocation">
+			
+			<div data-role="content" dir="rtl"> 
+				<h3>נתוני עמוד</h3>
+			</div>
+			
+			
+		</div><!--end of testlocation page-->
 		
 
 	</body>
@@ -291,6 +303,32 @@
 	}	
 
 	//////////////////////////////////// end testing camera ///////////////////////////////////////////////////////
+	
+	document.getElementById("btnGetNearestPole").onclick = onGetNearestPoleClick;
+	
+	function onGetNearestPoleClick(){
+		navigator.geolocation.getCurrentPosition(onGeolocationSuccess,onGeolocationError, {timeout: 30000 });
+	}
+	
+	function onGeolocationSuccess(position){
+		alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+	}
+	
+	function onGeolocationError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+	}
+	
+	
+	
+
 	
 
 </script>
