@@ -1,62 +1,113 @@
-<!DOCTYPE html>
-<html>
-	<title>&nbsp;</title>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script>
-	</head>
-	<body>
 		<!-- Start of first page I -->
-		<div data-role="page" id="page1">
+		<div data-role="page" id="page1" dir="rtl">
 			<!-- Header -->
 			<div data-role="header">
-				<h1>Phonegap Template &amp;</h1>
-
+				<button class="ui-btn-right ui-btn-icon-right" id="btnGetNearestPole" data-icon="search">אתר תחנה</button>
+				<h1>בדיקת תחנות</h1>
+				<a href="#mainPanel" class="ui-btn-left ui-btn-icon-left" data-transition="slide" data-direction="reverse" data-icon="gear">הגדרות</a>
+				<!--a href="#testLocation" class="ui-btn-left" data-transition="slide" data-direction="forward" data-icon="search">אתר תחנה</a-->
 			</div>
-			<!-- /header -->
+  <div data-role="panel" id="myPanel"> 
+    <h2>Panel Header</h2>
+    <p>You can close the panel by clicking outside the panel, pressing the Esc key or by swiping.</p>
+  </div> 
+			
 			<!-- Content    -->
-			<div data-role="content">
-				<h3>Content</h3>
+			<div data-role="main" class="ui-content">
+				<h3>הזן מספר תחנה</h3>
+				<input type="number" step="1" id="inptStationNumber"/> 
 				<p>
-					Blah blah blah blah
+					<h3>נא סמן ליקויים במידה ונמצאו</h3>
 				</p>
+		
+				<div>
+					<select multiple="multiple" id="lstChks">
+					    <option value="eSignNotWorking"> שילוט לא עובד </option>
+					    <option value="eSignNotAccurate"> שילוט עובד אבל לא מראה פרטים מדויקים </option>
+					    <option value="eElectricityProblem"> אין חשמל בנקודה </option>
+					    <option value="eBrokenPoll"> ונדליזם: עמוד שבור </option>
+					    <option value="eSignBroken"> ונדליזם: שילוט שבור </option>
+					    <option value="eSignDirty"> שילוט מלוכלך </option>
+					    <option value="eEnvironmentDirty"> סביבת השילוט והעמוד אינם נקיים </option>
+					    <option value="eSolarPanelBroken"> פנל סולרי שבור </option>
+					    <option value="eLowBattery"> מצבר נגמר </option>
+					</select>
+				</div>
+				
+				
+				<p>
+					<h3>נא סמן פעולות שבוצעו בעמדה</h3>
+				</p>
+				
+				<div>
+					<select multiple="multiple" id="lstActions">
+						<option value="eActionSignFixed">שלט תוקן</option>
+						<option value="eActionConnectedToServer">חובר לשרת</option>
+						<option value="eActionFixedElectricityProblem">תוקנה תקלת חשמל</option>
+						<option value="eActionFixedBrokenSign">תוקן שלט שבור</option>
+						<option value="eActionFixedPol">תוקן עמוד שבור</option>
+						<option value="eActionCleanedSign">נקיון שלט</option>
+						<option value="eActionCleanedEnvironment">נקיון כללי בעמדה</option>
+						<option value="eActionResetSign">איפוס שלט</option>
+						<option value="eActionReplacedSolarPanel">הוחלף פאנל סולארי</option>
+						<option value="eActionReplacedBattery">הוחלף מצבר</option>
+				    </select>
+				    
+				</div>
+				<div>
+					<textarea 	placeholder="הזן טקסט חופשי" lang="he" name="comments" COLS=40 ROWS=6 id="comments" class="textarea" dir="rtl">
+				  	</textarea>
+				</div>
+				
+				
+				<button class="ui-btn-right ui-btn-icon-right" id="btnGetPicture" data-icon="video">צלם תמונה</button>
+				<img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
+    			<img style="display:none;" id="largeImage" src="" />
+				<button type="button" id="btnSend">שלח</button>
 			</div>
 			<!-- /content -->
 			<!-- footer -->
 			<div data-role="footer">
-				<h4>&copy; 2013 Your Name</h4>
+				<h4>&copy; 2014 ISRCorp</h4>
 			</div>
 			<!-- /footer -->
 		</div>
-		<!-- /page -->
-	</body>
-</html>
-<script>
-	document.addEventListener("deviceready", onDeviceReady, false);
+		<!-- /page1 -->
+		
+		<!--settings page -->	
+		<div data-role="page" id="settings_page" dir="rtl">
+			<div data-role="header">
+				<a href="#page1"  class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="home">חזרה</a>
+				<h1>הגדרות</h1>
+			</div>
+			
+			<div data-role="content">
+				<ul data-role="listview">
+					<li>
+						<a href="#gps" 		data-transition="slide" class="menu" dir="rtl">GPS</a>
+					</li>
+					<li>
+						<a href="#disconnect" data-transition="slide" class="menu">התנתק</a>
+					</li>
+					<li>
+						<a href="#setting3" data-transition="slide" class="menu">הגדרות 3</a>
+					</li>
+					<li>
+						<a href="#setting4" data-transition="slide" class="menu">הגדרות 4</a>
+					</li>
+					
+					
+				</ul>
+			</div>
+		</div><!--end of settig page -->
+		
+		<div data-role="page" id="testLocation">
+			
+			<div data-role="content" dir="rtl"> 
+				<h3>נתוני עמוד</h3>
+			</div>
+			
+			
+		</div><!--end of testlocation page-->
+		
 
-	function onDeviceReady() {
-		document.addEventListener("pause", onPause, false);
-		document.addEventListener("resume", onResume, false);
-		alert("Device is Ready");
-
-	}
-
-
-//What to do when paused
-function onPause(){
-	
-	alert("paused!");
-}
-
-//What to do when resumed
-function onResume()
-{
-	
-	alert("resume");
-}
-</script>
