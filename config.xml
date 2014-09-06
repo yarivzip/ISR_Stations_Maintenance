@@ -82,7 +82,4 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg"      gap:platform="winphone" />
 
 	
-	<name>ISRMaintenance</name>
-	<description>ISR Stations maintenance</description>
-	<author href="http://isrcorp.co.il" email="yariv@isrcorp.co.il">Yariv Ziporin</author>
 </widget>
