@@ -29,6 +29,29 @@
 	</head>
 	
 	<body>
+	
+		<!-- login page -->
+		<div data-role="page" id="loginPage" dir="rtl">
+			<div data-role="content" id="input_login" dir="rtl">
+	        	<ul data-role="listview" data-divider-theme="a" data-inset="true">
+	        	    <li data-role="list-divider" role="heading" text-align="">
+		                שם משתמש
+		            </li>            
+		             <li data-role="list-divider" >
+		                <input type="text" id="txt_username"/>
+		            </li>            
+		            <li data-role="list-divider" role="heading">
+		                סיסמה
+		            </li>             
+		             <li data-role="list-divider" >
+		                <input type="password" id="txt_pwd"/>
+		            </li>            
+		             <li data-role="list-divider" > 
+		                <input type="button" id="btn_login" value="היכנס" onclick="javascript:verifyLogin();"/>
+		            </li>             
+		        </ul>
+		    </div>
+	    </div><!--end of login page-->		
 		
 
 	
@@ -124,6 +147,7 @@
 		</div>
 		<!-- /page1 -->
 		
+		
 		<!--settings page -->	
 		<div data-role="page" id="settings_page" dir="rtl">
 			<div data-role="header" data-theme="b">
@@ -164,14 +188,10 @@
 	    	<div data-role="header" data-theme="a">
 	    		<h1>עמודים בסביבתי</h1>
 	    	</div>
-	    <div role="main" class="ui-content" id="map-canvas" >
-        <!-- map loads here... -->
-    	</div>
-		</div><!-- end page1 -->	
-		
-		<!-- popup -->
-		<div class="error-messages" style="display:none;"></div>	
-
+	    	<div role="main" class="ui-content" id="map-canvas" >
+        	<!-- map loads here... -->
+    		</div>
+		</div><!--end of map-page-->
 
 	</body>
 </html>
@@ -193,19 +213,109 @@
 		destinationType = navigator.camera.DestinationType;
 	
 		navigator.splashscreen.hide();
+		
+
 		//alert("Device Ready");
 	}
 	
+	$(document).on( "pageinit", "#loginPage", function() {
+      	$("#loginPage").hide();
+		//check if username and password exist
+		checkCookie("IsrPolesUsr","IsrPolesPw");
+	});	
 	
+
 	
-	function onPause(){
-		//alert("Device paused");
+	function setCookie(cname,cvalue,exdays){
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires=" + d.toGMTString();
+	    document.cookie = cname+"="+cvalue+"; "+expires;
 	}
 	
-	function onResume(){
-		//alert("Device resumed");
+	function getCookie(cname){
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
 	}
+
+	function checkCookie(cname_usr, cname_pw){
+		//check if user coockie exists
+	    var cvalue_usr=getCookie(cname_usr);
+	    var cvalue_pw=getCookie(cname_pw);
+	    
+	    if (cvalue_usr != "" && cvalue_usr != null && cvalue_pw != "" && cvalue_pw != null) 
+	    {
+
+			//skip login page because there are coockis
+	    	//call webservice login
+	    	//TODO:call webservice login  
+	    	
+	    	var res = "SUCCESS" //Debug only remove later 
+	    	if (res="SUCCESS")
+	    	{
+	    		//load page1
+	    	}
+	    	else
+	    		alert("שם משתמש או סיסמה שגוים");
+	    		$("#loginPage").show();
+	    		
+  		}
+  		else
+  		{
+  			//window.location.href = "#loginPage";
+  			$("#loginPage").show();
+  		}
+	}	
 	
+	function onPause(){}
+	function onResume(){}
+	
+	function verifyLogin(){        
+	    var uname=document.getElementById("txt_username").value;
+    	var pwd=document.getElementById("txt_pwd").value;
+    	
+    	//call webservice login
+    	//TODO:call webservice login  
+    	
+    	var res = "SUCCESS" //Debug only remove later 
+    	if (res="SUCCESS")
+    	{
+    		setCookie("username",uname,365);
+    		setCookie("password",pwd,365);
+    		//load page1
+    	}
+    	else
+    		alert("שם משתמש או סיסמה שגוים");
+    	 
+		/*$.ajax({
+            type : 'POST',           
+            url : /Login', // Servlet URL           
+            data:{
+                'uname':uname,
+                'pwd':pwd
+            },
+            success : function(data) {            
+                if("SUCCESS"==data){                     
+                    alert("Login Success!!");
+                } else {                    
+                    alert("Invalid Login!!"); 
+                }
+            },
+            error : function(xhr, type) { 
+                alert('server error occurred');
+            } 
+		});*/
+		
+        
+	}
 
 	document.getElementById("btnSend").onclick = onClickSend;
 	
