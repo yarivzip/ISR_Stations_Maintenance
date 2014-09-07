@@ -135,7 +135,8 @@
     			<h2>אפשרויות</h2>
     			
     			<ul data-role="listview">
-					<li data-icon="user"><a href="#user" >משתמש</a></li>
+					<li data-role="list-divider">משתמש</li>
+					<li data-icon="user"><a id="btnLogout" >התנתק</a></li>
 					<li data-role="list-divider">איתור עמודים</li>
 					<li data-icon="search"><a id="btnGetNearestPole" >חפש עמוד קרוב</a></li>
 					<li data-icon="location"><a href="#map-page" >עמודים בסביבתי</a></li>
@@ -204,10 +205,20 @@
      
 	document.addEventListener("deviceReady",onDeviceReady,false);
 	
-	
+
 	function onDeviceReady(){
 		document.addEventListener("pause",onPause,false);
 		document.addEventListener("resume",onResume,false);
+
+		document.addEventListener("backbutton", function(e){
+		    if($.mobile.activePage.is('#loginPage') || $.mobile.activePage.is('#page1')){
+		        e.preventDefault();
+		        navigator.app.exitApp();
+		    }
+		    else {
+		        navigator.app.backHistory();
+		    }
+		}, false);
 		
 		pictureSource = navigator.camera.PictureSourceType;
 		destinationType = navigator.camera.DestinationType;
@@ -217,66 +228,77 @@
 
 		//alert("Device Ready");
 	}
-	
-	$(document).on( "pageinit", "#loginPage", function() {
-      	$("#loginPage").hide();
-		//check if username and password exist
-		checkCookie("IsrPolesUsr","IsrPolesPw");
-	});	
-	
-
-	
-	function setCookie(cname,cvalue,exdays){
-	    var d = new Date();
-	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	    var expires = "expires=" + d.toGMTString();
-	    document.cookie = cname+"="+cvalue+"; "+expires;
-	}
-	
-	function getCookie(cname){
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i=0; i<ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') c = c.substring(1);
-	        if (c.indexOf(name) != -1) {
-	            return c.substring(name.length, c.length);
-	        }
-	    }
-	    return "";
-	}
-
-	function checkCookie(cname_usr, cname_pw){
-		//check if user coockie exists
-	    var cvalue_usr=getCookie(cname_usr);
-	    var cvalue_pw=getCookie(cname_pw);
-	    
-	    if (cvalue_usr != "" && cvalue_usr != null && cvalue_pw != "" && cvalue_pw != null) 
-	    {
-
-			//skip login page because there are coockis
-	    	//call webservice login
-	    	//TODO:call webservice login  
-	    	
-	    	var res = "SUCCESS" //Debug only remove later 
-	    	if (res="SUCCESS")
-	    	{
-	    		//load page1
-	    	}
-	    	else
-	    		alert("שם משתמש או סיסמה שגוים");
-	    		$("#loginPage").show();
-	    		
-  		}
-  		else
-  		{
-  			//window.location.href = "#loginPage";
-  			$("#loginPage").show();
-  		}
-	}	
-	
 	function onPause(){}
 	function onResume(){}
+	/*function onBtnBack(){
+		var activePage = $.mobile.activePage.attr("id");
+		switch (""){
+			case "loginPage":
+				break;
+			case "page1":
+				break;
+			
+			case "settings_page":
+				break;
+			case "testLocation":
+				break;
+			case "map-page":
+				break;
+			default:
+				alert("handle backbtn!");
+		}
+	}
+	*/
+	
+	
+
+	$("#loginPage").on("pagebeforecreate",function(){
+		
+		//check if username and password exist
+		//checkCookie("IsrPolesUsr","IsrPolesPw");
+		
+		if(typeof(Storage) !== "undefined"){
+			var username = localStorage.getItem("username");
+			var password = localStorage.getItem("password");
+			
+			if(username && password){
+				//call webservice login
+				
+				//check if autorized
+				var res = "SUCCESS";
+				if(res=="SUCCESS"){
+	    			//load page1 - skip login
+					$.mobile.changePage("#page1", { transition: "slideup"}); 
+				}else{
+					alert("שם משתמש או סיסמה שגוים");
+					
+				}
+			}
+		}else{
+			alert("No Local Storage!");
+		}
+		
+		
+	});
+	
+	
+	document.getElementById("btnLogout").onclick = onbtnLogoutClick;
+	
+	function onbtnLogoutClick(){
+		if(typeof(Storage) !== "undefined"){
+			localStorage.removeItem("username");
+			localStorage.removeItem("password");
+			//sasa
+			$("#txt_username").val("");
+			$("#txt_pwd").val("");
+			$.mobile.changePage("#loginPage",{transition: "slideup"});
+		}
+		else{
+			alert("פעולה נכשלה");
+		}
+	}
+	
+	
 	
 	function verifyLogin(){        
 	    var uname=document.getElementById("txt_username").value;
@@ -285,36 +307,20 @@
     	//call webservice login
     	//TODO:call webservice login  
     	
-    	var res = "SUCCESS" //Debug only remove later 
+    	var res = "SUCCESS"; //Debug only remove later 
     	if (res="SUCCESS")
     	{
-    		setCookie("username",uname,365);
-    		setCookie("password",pwd,365);
+    		localStorage.setItem("username",uname);
+    		localStorage.setItem("password",pwd);
+    		
     		//load page1
+			$.mobile.changePage("#page1", { transition: "slideup"}); 
     	}
-    	else
+    	else{
     		alert("שם משתמש או סיסמה שגוים");
-    	 
-		/*$.ajax({
-            type : 'POST',           
-            url : /Login', // Servlet URL           
-            data:{
-                'uname':uname,
-                'pwd':pwd
-            },
-            success : function(data) {            
-                if("SUCCESS"==data){                     
-                    alert("Login Success!!");
-                } else {                    
-                    alert("Invalid Login!!"); 
-                }
-            },
-            error : function(xhr, type) { 
-                alert('server error occurred');
-            } 
-		});*/
-		
-        
+			localStorage.removeItem("username");
+			localStorage.removeItem("password");
+		}
 	}
 
 	document.getElementById("btnSend").onclick = onClickSend;
@@ -525,5 +531,57 @@ $( document ).on( "pageinit", "#map-page", function() {
     }
 });
 	
+/*	function setCookie(cname,cvalue,exdays){
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires=" + d.toGMTString();
+	    document.cookie = cname+"="+cvalue+"; "+expires;
+	}
+	
+	function getCookie(cname){
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
+	}
+
+	function checkCookie(cname_usr, cname_pw){
+		//check if user coockie exists
+	    var cvalue_usr=getCookie(cname_usr);
+	    var cvalue_pw=getCookie(cname_pw);
+	    
+	    if (cvalue_usr != "" && cvalue_usr != null && cvalue_pw != "" && cvalue_pw != null) 
+	    {
+
+			//skip login page because there are coockis
+	    	//call webservice login
+	    	//TODO:call webservice login  
+	    	
+	    	var res = "SUCCESS";//Debug only remove later 
+	    	if (res="SUCCESS")
+	    	{
+	    		//load page1 - skip login
+				$.mobile.changePage("#page1", { transition: "slideup"}); 
+	    	}
+	    	else
+	    		alert("שם משתמש או סיסמה שגוים");
+	    		$("#loginPage").show();
+	    		
+  		}
+  		else
+  		{
+  			//window.location.href = "#loginPage";
+  			$("#loginPage").show();
+  		}
+	}
+	*/	
 
 </script>
+
+
