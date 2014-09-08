@@ -499,37 +499,78 @@
 	
 	
 ///////////////////////////////////////////// handling map here because on another html it fails to load /////////////////////////////////////////
-$( document ).on( "pageinit", "#map-page", function() {
-    var defaultLatLng = new google.maps.LatLng(31.794419, 35.187608);  // Default to Hollywood, CA when no geolocation support
-    if ( navigator.geolocation ) {
-        function success(pos) {
-            // Location found, show map with these coordinates
-            drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-        }
-        function fail(error) {
-    		alert("לא נמצא מיקום מדויק\nבדוק הגדרות מיקום  ");
-            drawMap(defaultLatLng);  // Failed to find location, show default map
-        }
-        // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
-        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
-    } else {
-        drawMap(defaultLatLng);  // No geolocation support, show default map
-    }
-    function drawMap(latlng) {
-        var myOptions = {
-            zoom: 10,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+	$( document ).on( "pageinit", "#map-page", function() {
+	    var defaultLatLng = new google.maps.LatLng(31.794419, 35.187608);  // Default to Hollywood, CA when no geolocation support
+	    if ( navigator.geolocation ) {
+	        function success(pos) {
+	            // Location found, show map with these coordinates
+	            drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+	        }
+	        function fail(error) {
+	    		alert("לא נמצא מיקום מדויק\nבדוק הגדרות מיקום  ");
+	            drawMap(defaultLatLng);  // Failed to find location, show default map
+	        }
+	        // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+	        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+	    } else {
+	        drawMap(defaultLatLng);  // No geolocation support, show default map
+	    }
+	    function drawMap(latlng) {
+	        var myOptions = {
+	            zoom: 16,
+	            center: latlng,
+	            mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+	        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+	        // Add an overlay to the map of current lat/lng
+	        var marker = new google.maps.Marker({
+	            position: latlng,
+	            map: map,
+	            title: "Greetings!"
+	        });
+	        
+	        DrawMarkersOnMap(latlng);
+	    }
+	});
+	
+	//for testing the list of markers that will be received from the web service
+	function DrawMarkersOnMap(latlng){
+		var myOptions = {
+	            zoom: 16,
+	            center: latlng,
+	            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+
         var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-        // Add an overlay to the map of current lat/lng
-        var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title: "Greetings!"
-        });
-    }
-});
+		
+		var txt = '{ "markers" : [' +
+		'{ "id":"12343" , "Lat":"31.794118" , "Lon":"35.189486" },' +  
+		'{ "id":"32456" , "Lat":"31.799381" , "Lon":"35.185648" },' +	
+		'{ "id":"7654" , "Lat":"31.800912" , "Lon":"35.206119" },' +	 
+		'{ "id":"123" , "Lat":"31.801933" , "Lon":"35.211612" },' +	 
+		'{ "id":"43" , "Lat":"31.794081" , "Lon":"35.187415" },' +	 
+		'{ "id":"43" , "Lat":"31.796215" , "Lon":"35.184433" },' +	 
+		'{ "id":"98764" , "Lat":"31.792348" , "Lon":"35.192115" },' +	 
+		'{ "id":"32565445" , "Lat":"31.799679" , "Lon":"35.203273" }]}';	 
+		
+		var oMarkers = JSON.parse(txt);
+
+		var count = oMarkers.markers.length;
+		for(i = 0 ; i<count; i++)
+		{
+			var latlng = new google.maps.LatLng(oMarkers.markers[i].Lat, oMarkers.markers[i].Lon); 
+			var marker = new google.maps.Marker({
+				position:latlng,
+				map: map,
+				title: oMarkers.markers[i].id 
+			});
+		}
+		
+		
+	}
+	
+	
+	
 	
 /*	function setCookie(cname,cvalue,exdays){
 	    var d = new Date();
