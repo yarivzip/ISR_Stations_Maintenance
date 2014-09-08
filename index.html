@@ -528,9 +528,8 @@
 	            map: map,
 	            title: "Greetings!"
 	        });
-			alert("b4 draw");
+	        
 	        DrawMarkersOnMap(latlng);
-			alert("after draw");
 	    }
 	    
 		//for testing the list of markers that will be received from the web service
@@ -540,9 +539,8 @@
 		            center: latlng,
 		            mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
-			alert("draw1");
+
 	        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-			alert("draw2");
 			
 			var txt = '{ "markers" : [' +
 			'{ "id":"12343" , "Lat":"31.794118" , "Lon":"35.189486" },' +  
@@ -553,12 +551,9 @@
 			'{ "id":"43" , "Lat":"31.796215" , "Lon":"35.184433" },' +	 
 			'{ "id":"98764" , "Lat":"31.792348" , "Lon":"35.192115" },' +	 
 			'{ "id":"32565445" , "Lat":"31.799679" , "Lon":"35.203273" }]}';	 
-			alert("draw3");
 			
 			var oMarkers = JSON.parse(txt);
-
-			alert("draw4");
-
+	
 			var count = oMarkers.markers.length;
 			for(i = 0 ; i<count; i++)
 			{
@@ -566,11 +561,25 @@
 				var marker = new google.maps.Marker({
 					position:latlng,
 					map: map,
+					title: oMarkers.markers[i].id,
+					icon: "res/map/busstop.png",
+					animation: google.maps.Animation.DROP 
+				});
+				
+				var infoWindow = new google.maps.InfoWindow({
+					position:latlng,
 					title: oMarkers.markers[i].id 
 				});
+				google.maps.event.addListener(marker, 'click', function() {
+				    //map.setZoom(8);
+				    map.setCenter(marker.getPosition());
+				    infoWindow.open(map,marker);
+				    
+	  			});				
+				//marker.setTitle()
 			}
 			
-			alert("draw5");
+			
 			
 		}
 	    
