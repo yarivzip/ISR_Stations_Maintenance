@@ -61,7 +61,7 @@
 			<div data-role="header" data-theme="b">
 				<a href="#myPanel"  class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="carat-l">אפשרויות</a>
 				<!--a href="#testLocation" class="ui-btn-left" data-transition="slide" data-direction="forward" data-icon="search">אתר תחנה</a-->
-				<h1>בדיקת תחנות</h1>
+				<h1>ניהול משימות</h1>
 				<!--button data-role="button" class="ui-btn-left" id="btnGetNearestPole" data-icon="search">אתר תחנה</button-->
 		
 
@@ -116,7 +116,6 @@
 				<!--button class="ui-btn-right ui-btn-icon-right" id="btnGetPicture" data-icon="video">צלם תמונה</button-->
 				<!--button class="ui-btn-right ui-btn-icon-right" id="btnGetPicture" data-icon="camera">צלם תמונה</button-->
 				<!--a id="btnGetPicture" class="ui-btn-right" data-transition="slide" data-direction="reverse" data-icon="camera">צלם</a-->
-				<button type="button" id="btnGoToMapHtml">GoTo map.html</button>
 				<button type="button" id="btnGetPicture">צלם</button>
 				
 				<img style="display:none;width:250px;height:250px;" align="middle" id="smallImage" src="" />
@@ -131,16 +130,20 @@
 			<!-- /end footer -->
 			
 			<!-- panel-->
-  			<div data-role="panel" id="myPanel" data-display="overlay" data-position="right"> 
+  			<div data-role="panel" id="myPanel" data-display="overlay" data-position="right" > 
     			<h2>אפשרויות</h2>
     			
     			<ul data-role="listview">
-					<li data-role="list-divider">משתמש</li>
-					<li data-icon="user"><a id="btnLogout" >התנתק</a></li>
+						<li data-icon="refresh"><a href="#job-page" >רענן</a></li>
+					<li data-role="list-divider">משימות</li>
+						<li data-icon="grid"><a href="#job-today-page" >משימות להיום</a></li>
+						<li data-icon="grid"><a href="#job-fordate-page" >משימות לתאריך</a></li>
+						<li data-icon="plus"><a href="#job-create-page" >צור משימה חדשה</a></li>
 					<li data-role="list-divider">איתור עמודים</li>
-					<li data-icon="search"><a id="btnGetNearestPole" >חפש עמוד קרוב</a></li>
-					<li data-icon="location"><a href="#map-page" >עמודים בסביבתי</a></li>
-					<li data-icon="gear"><a href="#settings_page" data-direction="reverse" data-transition="flip">הגדרות</a></li>
+						<li data-icon="search"><a id="btnGetNearestPole" >חפש עמוד קרוב</a></li>
+						<li data-icon="location"><a href="#map-page" >עמודים בסביבתי</a></li>
+					<li data-role="list-divider">הגדרות</li>
+						<li data-icon="gear"><a href="#settings_page" data-direction="reverse" data-transition="flip">הגדרות</a></li>
     			</ul>
    			
   			</div> 
@@ -170,6 +173,8 @@
 					<li>
 						<a href="#setting4" data-transition="slide" class="menu">הגדרות 4</a>
 					</li>
+					<li data-icon="user"><a id="btnLogout" >התנתק</a></li>
+
 					
 					
 				</ul>
