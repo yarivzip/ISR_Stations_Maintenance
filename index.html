@@ -25,7 +25,7 @@
 			#map-canvas { height: 100% }
     	</style>
 		
-		
+
 	</head>
 	
 	<body>
@@ -136,7 +136,7 @@
     			<ul data-role="listview">
 						<li data-icon="refresh"><a href="#job-page" >רענן</a></li>
 					<li data-role="list-divider">משימות</li>
-						<li data-icon="grid"><a href="#job-today-page" >משימות להיום</a></li>
+						<li data-icon="grid"><a href="#job_list_page" >משימות להיום</a></li>
 						<li data-icon="grid"><a href="#job-fordate-page" >משימות לתאריך</a></li>
 						<li data-icon="plus"><a href="#job-create-page" >צור משימה חדשה</a></li>
 					<li data-role="list-divider">איתור עמודים</li>
@@ -151,6 +151,29 @@
 		</div>
 		<!-- /page1 -->
 		
+		<!-- Job details page -->
+		<div data-role="page" id="#job_details_page" dir="rtl">
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<H4>פרטי המשימה</H4>
+			</div>
+			<div data-role="footer" data-position="fixed" data-theme="b">
+				<a href="#pic_files_page" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-icon-camera ui-btn-icon-left"> </a>				
+			</div>
+		</div>
+		<!-- Job list page -->
+		<div data-role="page" id="#job_list_page" dir="rtl">
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<H4>רשימת משימות</H4>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li><a href="#job_details_page" data-transition="slide" class="menu" dir="rtl">משימה 1</a></li>
+				</ul>
+			</div>
+			<div data-role="footer" data-position="fixed" data-theme="b">
+				<!--a href="#pic_files_page" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-icon-camera ui-btn-icon-left"> </a-->				
+			</div>
+		</div>
 		
 		<!--settings page -->	
 		<div data-role="page" id="settings_page" dir="rtl">
@@ -380,10 +403,10 @@
 	}
 	
 	
-	document.getElementById("btnGoToMapHtml").onclick = GoToMapHtml;//test
+	/*document.getElementById("btnGoToMapHtml").onclick = GoToMapHtml;//test
 	function GoToMapHtml(){
 		$.mobile.changePage("map.html", { transition: "slideup"}); 
-	}
+	}*/
 	
 	
 	
